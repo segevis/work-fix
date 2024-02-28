@@ -1,0 +1,49 @@
+
+
+
++---------------------------------------+
+| Field Name | Location | Type of Field |
++---------------------------------------+
+|      Field1 | Location1 |         Type1 |
++---------------------------------------+
+| Available Time Slots                 |
++---------------------------------------+
+|  8:00 -  9:00 | Available       |
+|  9:00 - 10:00 | Available       |
+| 10:00 - 11:00 | Available       |
+| 11:00 - 12:00 | Available       |
+| 12:00 - 13:00 | Available       |
+| 13:00 - 14:00 | Available       |
+| 14:00 - 15:00 | Available       |
+| 15:00 - 16:00 | Available       |
+| 16:00 - 17:00 | Available       |
+| 17:00 - 18:00 | Available       |
+| 18:00 - 19:00 | Available       |
+| 19:00 - 20:00 | Available       |
+| 20:00 - 21:00 | Available       |
+| 21:00 - 22:00 | Available       |
+| 22:00 - 23:00 | Available       |
+
++---------------------------------------+
+| Field Name | Location | Type of Field |
++---------------------------------------+
+| Football Field |     Park |      Football |
++---------------------------------------+
+| Available Time Slots                 |
++---------------------------------------+
+|  8:00 -  9:00 | Available       |
+|  9:00 - 10:00 | Available       |
+| 10:00 - 11:00 | Available       |
+| 11:00 - 12:00 | Available       |
+| 12:00 - 13:00 | Available       |
+| 13:00 - 14:00 | Available       |
+| 14:00 - 15:00 | Available       |
+| 15:00 - 16:00 | Available       |
+| 16:00 - 17:00 | Available       |
+| 17:00 - 18:00 | Available       |
+| 18:00 - 19:00 | Available       |
+| 19:00 - 20:00 | Available       |
+| 20:00 - 21:00 | Available       |
+| 21:00 - 22:00 | Available       |
+| 22:00 - 23:00 | Available       |
+
