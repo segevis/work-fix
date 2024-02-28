@@ -8,6 +8,12 @@ add_executable(Software_engineering_principles_full_power main.cpp
         DataBase.h
         User.cpp
         User.h
+        Field.h
+        Field.cpp
+        Branch.h
+        Branch.cpp
+        Order.h
+        Order.cpp
         Player.cpp
         Player.h
         Manager.cpp

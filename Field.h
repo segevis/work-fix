@@ -17,6 +17,7 @@ protected:
     char* typeOfField;
     int length, width;
     float pricePerHour;
+    bool isHourReserved[15];
 
 public:
     Field():nameOfField(nullptr),location(nullptr),typeOfField(nullptr),length(0),width(0),pricePerHour(0.0){}
@@ -31,6 +32,12 @@ public:
     int getLength()const{return length;}
     int getWidth()const{return width;}
     float getPricePerHour()const{return pricePerHour;}
+    void markAsReserved(int hour);
+    bool isAvailable(int hour) const;
+    void displaySchedule() ;
+
+    bool reserveField(int hour);
+
 
 };
 

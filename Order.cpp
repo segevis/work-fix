@@ -21,8 +21,8 @@ Order::Order(const Order& other)
     day=other.day;
 }
 
-void Order::writeOrder(const char* customerName, int fieldIndex, int day, int startTime, int endTime)
-{
-    const string FILE_PATH1 = "C:\\Users\\Artiom\\CLionProjects\\SportField\\schedule list";
-    ofstream File(FILE_PATH1,ios::app);
-}
+//void Order::writeOrder(const char* customerName, int fieldIndex, int day, int startTime, int endTime)
+//{
+//    const string FILE_PATH1 = "C:\\Users\\Artiom\\CLionProjects\\SportField\\schedule list";
+//    ofstream File(FILE_PATH1,ios::app);
+//}
