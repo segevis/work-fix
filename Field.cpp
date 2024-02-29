@@ -24,10 +24,29 @@ Field::Field(char* nameOfField, char* location, char* typeOfField, int length, i
     }
 }
 
+void Field::readFromScheduleFile(string& filePath)
+{
+    const string FILE_PATH = "C:\\Users\\Artiom\\CLionProjects\\work-fix\\schedule list";
+    ifstream scheduleFile(FILE_PATH);
+
+    if (!scheduleFile.is_open()) {
+        cout << "Error opening schedule file." << std::endl;
+        return;
+        }
+
+    string line;
+    while (getline(scheduleFile, line))
+    {
+        cout << line << endl;  // Example: Print each line to the console
+    }
+
+        scheduleFile.close();
+}
+
 
 void Field::writeScheduleToFile()
 {
-    const ::string FILE_PATH = "C:\\Users\\Artiom\\CLionProjects\\work-fix\\schedule list";
+    const string FILE_PATH = "C:\\Users\\Artiom\\CLionProjects\\work-fix\\schedule list";
     ofstream scheduleFile(FILE_PATH, ios::app);
     if (!scheduleFile.is_open()) {
         cout << "Error opening schedule file." << endl;
@@ -153,6 +172,6 @@ bool Field::reserveField(int hour, Player* player, char* rentEquipment) {
     // Update the schedule file
     //writeScheduleToFile();
 
-    std::cout << "Reservation successful for " << nameOfField << " at " << hour << ":00." << std::endl;
+    cout << "Reservation successful for " << nameOfField << " at " << hour << ":00." << std::endl;
     return true;
 }
