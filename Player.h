@@ -12,6 +12,7 @@ class Player: public User {
 private:
     char* vip;
 public :
+
     Player(char *n_ID, char *f_name, char *l_name, char* birth,
            char *n_phone, char *user, char *password, char *address,
            char *vip, char* gender,char* email)
@@ -21,6 +22,8 @@ public :
 
     ~Player(){//delete this->VIP;
     }
+
+
 
     void Set_VIP();
     char* Get_VIP(){return vip;}

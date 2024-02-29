@@ -4,6 +4,8 @@
 
 #include "Player.h"
 
+
+
 void Player::Set_VIP() {
     int choice;
     cout << "Do you want to be a VIP Client: 1 - YES, 2 - NO." << endl;

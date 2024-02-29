@@ -19,12 +19,15 @@ Field::Field(char* nameOfField, char* location, char* typeOfField, int length, i
     this->width=width;
     this->length=length;
     this->pricePerHour=pricePerHour;
+    for (int i = 0; i < 15; ++i) {
+        isHourReserved[i] = false;
+    }
 }
 
 
 void Field::writeScheduleToFile()
 {
-    const ::string FILE_PATH = R"(C:\Users\Artiom\CLionProjects\SportField\schedule list)";
+    const ::string FILE_PATH = "C:\\Users\\Artiom\\CLionProjects\\work-fix\\schedule list";
     ofstream scheduleFile(FILE_PATH, ios::app);
     if (!scheduleFile.is_open()) {
         cout << "Error opening schedule file." << endl;
@@ -34,14 +37,25 @@ void Field::writeScheduleToFile()
     scheduleFile << "| Field Name | Location | Type of Field |\n";
     scheduleFile << "+---------------------------------------+\n";
     scheduleFile << "| " << setw(11) << nameOfField << "  | " << setw(8) << location << " | " << setw(13) << typeOfField << " |\n";
-    scheduleFile << "+---------------------------------------+\n";
-    scheduleFile << "| Available Time Slots                  |\n";
-    scheduleFile << "+---------------------------------------+\n";
 
     // Print time slots
+
+    scheduleFile << "+---------------------------------------------------------------------------------------------------------------+" << endl;
+    scheduleFile << "| Hour          | Availability   | ID              | First Name      | Last Name       | Equipment Rented       |" << endl;
+    scheduleFile << "+---------------------------------------------------------------------------------------------------------------+" << endl;
+
     for (int hour = 8; hour <= 22; ++hour) {
-        scheduleFile << "| " << setw(2) << hour << ":00 - " << setw(2) << hour + 1 << ":00 | Available       |\n";
+        scheduleFile << "| " << setw(2) << hour << ":00 - " << setw(2) << hour + 1 << ":00 | ";
+
+        // Check if the hour is within valid range
+        if (isAvailable(hour)) {
+            scheduleFile << "Available      |                 |                 |                 |                        |" << endl;
+        } else {
+            scheduleFile << "Reserved       | " << setw(16) << left << reservations[hour-8].getPlayer()->Get_ID() << "| " << setw(16) << left << reservations[hour-8].getPlayer()->Get_First_Name()  << "| " << setw(16) << left << reservations[hour-8].getPlayer()->Get_Last_Name()  << "| " << setw(23) << left << reservations[hour-8].getEquipmentRented() << "|" << endl;
+        }
     }
+
+    scheduleFile << "+---------------------------------------------------------------------------------------------------------------+" << endl;
     scheduleFile << endl;
     scheduleFile.close();
 }
@@ -74,11 +88,12 @@ void Field::printDetails()
 
 
 
-void Field::markAsReserved(int hour)
+void Field::markAsReserved(int hour, Player* player,char* rentEquipment)
 {
     // Check if the hour is within valid range
     if (hour >= 8 && hour <= 22) {
         isHourReserved[hour - 8] = true;
+        reservations[hour-8].setAll(hour,player,rentEquipment);
     }
 }
 
@@ -86,22 +101,22 @@ void Field::markAsReserved(int hour)
 void Field::displaySchedule()
 {
     cout << "Schedule for " << nameOfField << ":" << endl;
-    cout << "+---------------------------------------+" << endl;
-    cout << "| Hour       | Availability             |" << endl;
-    cout << "+---------------------------------------+" << endl;
+    cout << "+---------------------------------------------------------------------------------------------------------------+" << endl;
+    cout << "| Hour          | Availability   | ID              | First Name      | Last Name       | Equipment Rented       |" << endl;
+    cout << "+---------------------------------------------------------------------------------------------------------------+" << endl;
 
     for (int hour = 8; hour <= 22; ++hour) {
         cout << "| " << setw(2) << hour << ":00 - " << setw(2) << hour + 1 << ":00 | ";
 
         // Check if the hour is within valid range
         if (isAvailable(hour)) {
-            cout << "Available                  |" << endl;
+            cout << "Available      |                 |                 |                 |                        |" << endl;
         } else {
-            cout << "Reserved                  |" << endl;
+            cout << "Reserved       | " << setw(16) << left << reservations[hour-8].getPlayer()->Get_ID() << "| " << setw(16) << left << reservations[hour-8].getPlayer()->Get_First_Name()  << "| " << setw(16) << left << reservations[hour-8].getPlayer()->Get_Last_Name()  << "| " << setw(23) << left << reservations[hour-8].getEquipmentRented() << "|" << endl;
         }
     }
 
-    cout << "+---------------------------------------+" << endl;
+    cout << "+---------------------------------------------------------------------------------------------------------------+" << endl;
 }
 
 
@@ -119,10 +134,10 @@ bool Field::isAvailable(int hour) const
 
 
 
-bool Field::reserveField(int hour) {
+bool Field::reserveField(int hour, Player* player, char* rentEquipment) {
     // Check if the hour is within valid range
     if (hour < 8 || hour > 22) {
-        cout << "Invalid hour for reservation." << std::endl;
+        cout << "Invalid hour for reservation." << endl;
         return false;
     }
 
@@ -133,10 +148,10 @@ bool Field::reserveField(int hour) {
     }
 
     // Make the reservation
-    markAsReserved(hour);
+    markAsReserved(hour,player,rentEquipment);
 
     // Update the schedule file
-    writeScheduleToFile();
+    //writeScheduleToFile();
 
     std::cout << "Reservation successful for " << nameOfField << " at " << hour << ":00." << std::endl;
     return true;
