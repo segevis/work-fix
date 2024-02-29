@@ -154,7 +154,6 @@ bool Field::isAvailable(int hour) const
 }
 
 
-
 bool Field::reserveField(int hour, Player* player, char* rentEquipment) {
     // Check if the hour is within valid range
     if (hour < 8 || hour > 22) {
@@ -178,8 +177,7 @@ bool Field::reserveField(int hour, Player* player, char* rentEquipment) {
     return true;
 }
 
-
-void Field::cancelOrderById(const std::string& idToCancel)
+void Field::showPlayerOrderHistory(const string& playerId) const
 {
     const std::string FILE_PATH = "C:\\Users\\Artiom\\CLionProjects\\work-fix\\schedule list";
     std::ifstream inputFile(FILE_PATH);
@@ -188,13 +186,33 @@ void Field::cancelOrderById(const std::string& idToCancel)
         return;
     }
 
+    string line;
+    while (getline(inputFile, line)) {
+        // Check if the line contains the player's ID
+        if (line.find(playerId) != string::npos) {
+            cout << line << endl;
+        }
+    }
+    inputFile.close();
+}
+
+
+void Field::cancelOrderById(const std::string& idToCancel)
+{
+    const string FILE_PATH = "C:\\Users\\Artiom\\CLionProjects\\work-fix\\schedule list";
+    ifstream inputFile(FILE_PATH);
+    if (!inputFile.is_open()) {
+        cout << "Error opening schedule file." << endl;
+        return;
+    }
+
     // Read the existing content into memory
-    std::string fileContent((std::istreambuf_iterator<char>(inputFile)), std::istreambuf_iterator<char>());
+    string fileContent((istreambuf_iterator<char>(inputFile)),istreambuf_iterator<char>());
 
     // Find the position of the reservation with the specified ID
     size_t idPosition = fileContent.find(idToCancel);
-    if (idPosition == std::string::npos) {
-        std::cout << "Reservation with ID " << idToCancel << " not found." << std::endl;
+    if (idPosition == string::npos) {
+        cout << "Reservation with ID " << idToCancel << " not found." << endl;
         return;
     }
 
@@ -208,14 +226,14 @@ void Field::cancelOrderById(const std::string& idToCancel)
     fileContent.erase(lineStart, lineEnd - lineStart + 1);
 
     // Write the modified content back to the file
-    std::ofstream outputFile(FILE_PATH);
+    ofstream outputFile(FILE_PATH);
     if (!outputFile.is_open()) {
-        std::cout << "Error opening schedule file for writing." << std::endl;
+        cout << "Error opening schedule file for writing." << endl;
         return;
     }
 
     outputFile << fileContent;
-    std::cout << "Order with ID " << idToCancel << " has been canceled." << std::endl;
+    cout << "Order with ID " << idToCancel << " has been canceled." << endl;
 
     inputFile.close();
     outputFile.close();

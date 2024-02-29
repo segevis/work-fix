@@ -35,6 +35,7 @@ public:
     char* getNameOfField()const{return nameOfField;}
     void writeScheduleToFile();
     void readFromScheduleFile();
+    void showPlayerOrderHistory(const string& playerId) const;
     char* getLocation()const{return location;}
     char* getTypeOfField()const{return typeOfField;}
     int getLength()const{return length;}
@@ -44,8 +45,6 @@ public:
     bool isAvailable(int hour) const;
     void displaySchedule() ;
     bool reserveField(int hour, Player* player, char* rentEquipment);
-
-
     void cancelOrderById(const string &idToCancel);
 };
 

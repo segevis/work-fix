@@ -131,12 +131,13 @@ int main() {
     }
 
     // Display details and schedule after reservation
-    customerField.printDetails();
+//    customerField.printDetails();
     customerField.displaySchedule();
     customerField.readFromScheduleFile();
-    customerField.writeScheduleToFile();
-    customerField.cancelOrderById("segev");
+//    customerField.writeScheduleToFile();
+//    customerField.cancelOrderById("segev");
     customerField.readFromScheduleFile();
+    customerField.showPlayerOrderHistory("gal/artiom");
 
 
     return 0;
