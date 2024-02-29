@@ -24,23 +24,24 @@ Field::Field(char* nameOfField, char* location, char* typeOfField, int length, i
     }
 }
 
-void Field::readFromScheduleFile(string& filePath)
+void Field::readFromScheduleFile()
 {
-    const string FILE_PATH = "C:\\Users\\Artiom\\CLionProjects\\work-fix\\schedule list";
-    ifstream scheduleFile(FILE_PATH);
 
-    if (!scheduleFile.is_open()) {
-        cout << "Error opening schedule file." << std::endl;
-        return;
+        const std::string FILE_PATH = "C:\\Users\\Artiom\\CLionProjects\\work-fix\\schedule list";
+        std::ifstream scheduleFile(FILE_PATH);
+
+        if (!scheduleFile.is_open()) {
+            std::cout << "Error opening schedule file." << std::endl;
+            return;
         }
 
-    string line;
-    while (getline(scheduleFile, line))
-    {
-        cout << line << endl;  // Example: Print each line to the console
-    }
+        std::string line;
+        while (std::getline(scheduleFile, line)) {
+            std::cout << line << std::endl;  // Print each line to the console
+        }
 
         scheduleFile.close();
+
 }
 
 
@@ -79,6 +80,7 @@ void Field::writeScheduleToFile()
     scheduleFile.close();
 }
 
+
 Field::Field(const Field &other)
 {
     nameOfField = new char[strlen(other.nameOfField)+1];
@@ -95,6 +97,7 @@ Field::Field(const Field &other)
     pricePerHour=other.pricePerHour;
 }
 
+
 void Field::printDetails()
 {
     cout << "Field Name: " << nameOfField << endl;
@@ -104,7 +107,6 @@ void Field::printDetails()
     cout << "Width: " << width << endl;
     cout << "Price per hour is: " << pricePerHour << endl;
 }
-
 
 
 void Field::markAsReserved(int hour, Player* player,char* rentEquipment)
@@ -174,4 +176,47 @@ bool Field::reserveField(int hour, Player* player, char* rentEquipment) {
 
     cout << "Reservation successful for " << nameOfField << " at " << hour << ":00." << std::endl;
     return true;
+}
+
+
+void Field::cancelOrderById(const std::string& idToCancel)
+{
+    const std::string FILE_PATH = "C:\\Users\\Artiom\\CLionProjects\\work-fix\\schedule list";
+    std::ifstream inputFile(FILE_PATH);
+    if (!inputFile.is_open()) {
+        std::cout << "Error opening schedule file." << std::endl;
+        return;
+    }
+
+    // Read the existing content into memory
+    std::string fileContent((std::istreambuf_iterator<char>(inputFile)), std::istreambuf_iterator<char>());
+
+    // Find the position of the reservation with the specified ID
+    size_t idPosition = fileContent.find(idToCancel);
+    if (idPosition == std::string::npos) {
+        std::cout << "Reservation with ID " << idToCancel << " not found." << std::endl;
+        return;
+    }
+
+    // Find the start of the line containing the reservation
+    size_t lineStart = fileContent.rfind('\n', idPosition) + 1;
+
+    // Find the end of the line containing the reservation
+    size_t lineEnd = fileContent.find('\n', idPosition);
+
+    // Erase the line containing the reservation
+    fileContent.erase(lineStart, lineEnd - lineStart + 1);
+
+    // Write the modified content back to the file
+    std::ofstream outputFile(FILE_PATH);
+    if (!outputFile.is_open()) {
+        std::cout << "Error opening schedule file for writing." << std::endl;
+        return;
+    }
+
+    outputFile << fileContent;
+    std::cout << "Order with ID " << idToCancel << " has been canceled." << std::endl;
+
+    inputFile.close();
+    outputFile.close();
 }
