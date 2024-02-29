@@ -1,0 +1,3 @@
+C:/Users/Artiom/CLionProjects/work-fix/cmake-build-debug/CMakeFiles/Software_engineering_principles_full_power.dir
+C:/Users/Artiom/CLionProjects/work-fix/cmake-build-debug/CMakeFiles/edit_cache.dir
+C:/Users/Artiom/CLionProjects/work-fix/cmake-build-debug/CMakeFiles/rebuild_cache.dir
